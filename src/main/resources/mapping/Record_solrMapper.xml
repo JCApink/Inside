@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.inside.mapper.Record_solrMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.test.inside.model.document.Record_solr">
+        <!--column指向数据库列名 property指向pojo对象中字段名 -->
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="updateTime" property="updateTime" />
+        <result column="isStar" property="isStar" />
+        <result column="url" property="url" />
+        <result column="tag" property="group" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, content, updateTime, isStar, url, tag
+    </sql>
+
+    <select id="getNew"  resultType="com.test.inside.model.document.Record_solr" parameterType="int">
+        SELECT r.id,r.title,r.content,r.updateTime,r.isStar,r.url,g.title as 'group'
+						FROM records_ r LEFT JOIN group_ g
+						ON r.groupId = g.`name` AND r.user_id = g.userId
+					    WHERE user_id = #{userId};
+    </select>
+
+    <select id="getByStar"  resultType="com.test.inside.model.document.Record_solr" parameterType="int">
+        SELECT r.id,r.title,r.content,r.updateTime,r.isStar,r.url,g.title as 'group'
+        FROM records_ r LEFT JOIN group_ g
+        ON r.groupId = g.`name` AND r.user_id = g.userId
+        WHERE user_id = #{userId} AND isStar = 1;
+    </select>
+
+    <select id="getByGroup"  resultType="com.test.inside.model.document.Record_solr" parameterType="int">
+        SELECT r.id,r.title,r.content,r.updateTime,r.isStar,r.url,g.title as 'group'
+        FROM records_ r LEFT JOIN group_ g
+        ON r.groupId = g.`name` AND r.user_id = g.userId
+        where groupId = #{id} AND user_id = #{userId};
+    </select>
+
+    <select id="selectByKey"  resultType="com.test.inside.model.document.Record_solr" parameterType="String">
+        SELECT r.id,r.title,r.content,r.updateTime,r.isStar,r.url,g.title as 'group'
+        FROM records_ r LEFT JOIN group_ g
+        ON r.groupId = g.`name` AND r.user_id = g.userId
+        where r.title LIKE #{key} OR content LIKE #{key};
+    </select>
+</mapper>

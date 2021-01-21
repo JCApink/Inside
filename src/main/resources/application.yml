@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  #数据库连接
+  datasource:
+    username: root
+    password: Admin123.
+    url: jdbc:mysql://120.79.195.7:3306/inside?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    initialization-mode: always
+
+  #redis
+  redis:
+    host: 120.79.195.7
+    port: 6379
+    password: admin
+    database: 0
+    timeout: 2000ms
+
+  #data:solr:host: http://120.79.195.7:8983/solr
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug
+
+#mybatis-plus
+mybatis-plus:
+  type-aliases-package: com.test.inside.model.pojo
+  mapper-locations: classpath:mapping/*.xml
+
+#文件上传
+spring.servlet.multipart.max-file-size : 20MB #指定上载文件允许的最大大小。 默认值为1MB
+spring.servlet.multipart.max-request-size : 200MB #指定multipart/form-data请求允许的最大大小。 默认值为10MB。

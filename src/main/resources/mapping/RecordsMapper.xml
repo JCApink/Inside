@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.inside.mapper.RecordsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.test.inside.model.pojo.Records">
+        <!--column指向数据库列名 property指向pojo对象中字段名 -->
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="groudId" property="groudId" />
+        <result column="content" property="content" />
+        <result column="updateTime" property="updateTime" />
+        <result column="isStar" property="isStar" />
+        <result column="url" property="url" />
+        <result column="userId" property="userId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, groudId, content, updateTime, isStar, url, userId
+    </sql>
+
+    <select id="getByGroup"  resultType="com.test.inside.model.pojo.Records" parameterType="int">
+    SELECT id,groupId,title,content,updateTime,isStar,url
+    FROM records_
+    where groupId = #{id} AND user_id = #{userId};
+</select>
+
+    <select id="getById"  resultType="com.test.inside.model.pojo.Records" parameterType="int">
+       SELECT id,groupId,title,content,updateTime,isStar,url
+	   FROM records_
+	   where user_id = #{userId};
+    </select>
+
+    <select id="getOneById"  resultType="com.test.inside.model.pojo.Records" parameterType="int">
+        SELECT *
+        FROM records_
+        where id = #{id} AND user_id = #{userId};
+    </select>
+
+</mapper>

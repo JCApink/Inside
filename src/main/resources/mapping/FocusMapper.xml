@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.inside.mapper.FocusMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="Photo" type="com.test.inside.model.pojo.Focus">
+        <result column="id" property="id" />
+        <result column="todayfocustime" property="todayfocustime" />
+        <result column="totalfocustime" property="totalfocustime" />
+        <result column="uptime" property="uptime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, todayfocustime,totalfocustime,uptime
+    </sql>
+
+    <select id="getById" resultType="com.test.inside.model.pojo.Focus">
+        SELECT *
+        FROM `focus`
+        where id = #{userid}
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.inside.mapper.PhotoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="Photo" type="com.test.inside.model.pojo.Photo">
+        <result column="id" property="id" />
+        <result column="userid" property="userid" />
+        <result column="listid" property="listid" />
+        <result column="listtitle" property="listtitle" />
+        <result column="title" property="title" />
+        <result column="description" property="description" />
+        <result column="path" property="path" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userid, listid, listtitle, title, description, path
+    </sql>
+
+    <select id="getListtitleById"  resultType="String" parameterType="int">
+       SELECT listtitle
+       FROM `photogroup`
+       WHERE listid = #{listid} and userid = #{userid};
+    </select>
+
+    <select id="getByListid"  resultType="com.test.inside.model.pojo.Photo" parameterType="int" >
+        SELECT p.id,p.listid,p.title,p.description,p.url,p.name,pg.listtitle
+        FROM photo p LEFT JOIN photogroup pg
+        ON p.listid = pg.listid AND p.userid = pg.userid
+        WHERE p.userid = #{userid} and pg.listid = #{listid};
+    </select>
+
+</mapper>

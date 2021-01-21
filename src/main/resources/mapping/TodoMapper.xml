@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.inside.mapper.TodoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="Todo" type="com.test.inside.model.pojo.Todo">
+        <result column="id" property="id" />
+        <result column="userid" property="userid" />
+        <result column="adddate" property="adddate" />
+        <result column="finishdate" property="finishdate" />
+        <result column="content" property="content"/>
+        <result column="completed" property="completed"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userid, adddate, finishdate, content, completed
+    </sql>
+
+    <select id="getPlanDate" parameterType="int" resultMap="Todo">
+        SELECT adddate,content,id,completed,finishdate
+        FROM  todo
+        WHERE  userid = #{userid}
+        ORDER BY adddate DESC
+    </select>
+
+    <select id="selectAll" resultType="int">
+        SELECT max(id) FROM todo
+    </select>
+
+
+</mapper>

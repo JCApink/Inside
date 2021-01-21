@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.inside.mapper.CountDownMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="CountDown" type="com.test.inside.model.pojo.CountDown">
+        <result column="id" property="id" />
+        <result column="userid" property="userid" />
+        <result column="date" property="date" />
+        <result column="title" property="title" />
+        <result column="content" property="content"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userid, date, title, content
+    </sql>
+
+    <select id="getPlanDate" parameterType="int" resultMap="CountDown">
+        SELECT title,content,id,date
+        FROM  countdown
+        WHERE  userid = #{userid}
+        ORDER BY date
+    </select>
+
+    <select id="selectAll" resultType="int">
+        SELECT max(id) FROM countdown
+    </select>
+
+</mapper>
